@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Visualizar hub</h1>
+  <%= link_to "Voltar para a lista", hubs_path, class: "btn btn-secondary" %>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <p>
+      <strong>Nome:</strong>
+      <%= @hub.name %>
+    </p>
+
+    <p>
+      <strong>Localização:</strong>
+      <%= @hub.location %>
+    </p>
+  </div>
+  <div class="card-footer d-flex justify-content-end align-items-center gap-2">
+      <%= link_to content_tag(:i, "", class: "bi bi-pencil") + " Editar", edit_hub_path(@hub), class: "btn btn-warning" %>
+      <%= button_to content_tag(:i, "", class: "bi bi-trash") + " Excluir", @hub, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
+  </div>
+</div>
+
+<div class="card shadow-sm mt-4">
+  <div class="card-header">
+    <h2 class="h5 mb-0">Estoque Atual do Hub</h2>
+  </div>
+  <div class="card-body">
+    <% if @stock_items.any? %>
+      <ul class="list-group list-group-flush">
+        <% @stock_items.each do |item| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <strong><%= item.product.name_with_category %></strong>
+            <span class="badge bg-primary rounded-pill fs-6">
+              <%= item.quantity %> unidades
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted mb-0">Nenhum item em estoque neste hub.</p>
+    <% end %>
+  </div>
+</div>
+
+<div class="card shadow-sm mt-4">
+  <div class="card-header">
+    <h2 class="h5 mb-0">Adicionar/Remover Estoque</h2>
+  </div>
+  <div class="card-body">
+    <%= form_with(model: [@hub, StockItem.new], local: true) do |form| %>
+      <div class="row align-items-end">
+        <div class="col-md-6 mb-3">
+          <%= form.label :product_id, "Produto", class: "form-label" %>
+          <%= form.collection_select :product_id, Product.joins(:category).order('products.name ASC', 'categories.name ASC'), :id, :name_with_category, { prompt: "Selecione um produto" }, { class: "form-select" } %>
+        </div>
+        <div class="col-md-3 mb-3">
+          <%= form.label :quantity, "Quantidade", class: "form-label" %>
+          <%= form.number_field :quantity, class: "form-control", value: 1 %>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="btn-group w-100">
+              <button type="submit" name="operation" value="add" class="btn btn-success">Adicionar</button>
+              <button type="submit" name="operation" value="remove" class="btn btn-danger">Remover</button>
+            </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

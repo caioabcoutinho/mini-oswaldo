@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Agendamentos</h1>
+  <%= link_to "Novo Agendamento", new_appointment_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <%= form_with(url: appointments_path, method: :get, local: true, class: "row g-3") do |form| %>
+      
+      <div class="col-md-4">
+        <%= form.label :search_id, "Pesquisar por ID", class: "form-label" %>
+        <%= form.number_field :search_id, value: params[:search_id], class: "form-control" %>
+      </div>
+      
+      <div class="col-md-4">
+        <%= form.label :search_date, "Pesquisar por Data", class: "form-label" %>
+        <%= form.date_field :search_date, value: params[:search_date], class: "form-control" %>
+      </div>
+      
+      <div class="col-md-4 d-flex align-items-end">
+        <%= form.submit "Pesquisar", class: "btn btn-info text-white me-2" %>
+        <%= link_to "Limpar", appointments_path, class: "btn btn-secondary" %>
+      </div>
+      
+    <% end %>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Paciente</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Hub</th>
+            <th>Agendado por</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @appointments.each do |appointment| %>
+            <tr>
+              <td><%= appointment.id %></td>
+              <td><%= appointment.patient_name %></td>
+              <td><%= l appointment.appointment_date, format: :short %></td>
+              <td>
+                <% status_class = case appointment.status
+                                 when "Agendado" then "bg-info"
+                                 when "Concluído" then "bg-success"
+                                 when "Cancelado" then "bg-danger"
+                                 else "bg-secondary"
+                                 end %>
+                <span class="badge <%= status_class %>"><%= appointment.status %></span>
+              </td>
+              <td><%= appointment.hub.name %></td>
+              <td><%= appointment.user.email %></td>
+              <td>
+                <%= link_to "Ver", appointment, class: "btn btn-sm btn-outline-primary" %>
+              </td>
+            </tr>
+          <% end %>
+          
+          <% if @appointments.empty? %>
+            <tr>
+              <td colspan="7" class="text-center text-muted">Nenhum agendamento encontrado.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

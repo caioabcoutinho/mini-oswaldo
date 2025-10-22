@@ -1,0 +1,50 @@
+<h1>Dashboard</h1>
+<p class="lead">Bem-vindo de volta, <%= current_user.email %>!</p>
+<hr>
+
+<h3>Resumo do Sistema</h3>
+
+<div class="row mt-4">
+
+  <div class="col-md-3">
+    <div class="card text-center text-white bg-success shadow-sm mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Receita Total</h5>
+        <p class="display-4"><%= number_to_currency(@total_revenue) %></p>
+        <small>(de Agendamentos Concluídos)</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Vacinas Cadastradas</h5>
+        <p class="display-4"><%= @total_products %></p>
+        <%= link_to "Ver Vacinas", products_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Hubs Ativos</h5>
+        <p class="display-4"><%= @total_hubs %></p>
+        <%= link_to "Ver Hubs", hubs_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Categorias</h5>
+        <p class="display-4"><%= @total_categories %></p>
+        <%= link_to "Ver Categorias", categories_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+
+</div>
+

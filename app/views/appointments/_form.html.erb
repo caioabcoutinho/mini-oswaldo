@@ -1,0 +1,79 @@
+<%= form_with(model: appointment, data: { controller: "nested-form", turbo: "false" }) do |form| %>
+  <% if appointment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(appointment.errors.count, "erro") %> impediu este agendamento de ser salvo:</h2>
+
+      <ul>
+        <% appointment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-header">
+      <h2 class="h5 mb-0">Detalhes do Agendamento</h2>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= form.label :patient_name, "Nome do Paciente", class: "form-label" %>
+          <%= form.text_field :patient_name, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= form.label :appointment_date, "Data e Hora", class: "form-label" %>
+          <%= form.datetime_field :appointment_date, class: "form-control" %>
+        </div>
+
+        <div class="col-md-8 mb-3">
+          <%= form.label :address, "Endereço", class: "form-label" %>
+          <%= form.text_area :address, rows: 3, class: "form-control" %>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <%= form.label :hub_id, "Hub de Origem", class: "form-label" %>
+          <%= form.collection_select :hub_id, Hub.order(:name), :id, :name, { prompt: "Selecione o Hub" }, { class: "form-select" } %>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <%= form.label :status, "Status", class: "form-label" %>
+          <%= form.select :status, ["Agendado", "Concluído", "Cancelado"], {}, { class: "form-select" } %>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <%= form.label :technician_name, "Técnico(a)", class: "form-label" %>
+          <%= form.text_field :technician_name, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h2 class="h5 mb-0">Produtos (Vacinas)</h2>
+    </div>
+    <div class="card-body">
+      <div data-nested-form-target="container">
+        <%= form.fields_for :appointment_items do |item_form| %>
+          <%= render 'appointment_item_fields', f: item_form %>
+        <% end %>
+      </div>
+
+      <div data-nested-form-target="template" class="d-none">
+        <%= link_to_add_fields "", form, :appointment_items %>
+      </div>
+
+      <button type="button" data-action="click->nested-form#add" class="btn btn-outline-success mt-3">
+        Adicionar Produto
+      </button>
+
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end mt-4">
+    <%= form.submit "Salvar Agendamento", class: "btn btn-primary btn-lg" %>
+  </div>
+<% end %>
+

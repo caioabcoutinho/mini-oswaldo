@@ -1,0 +1,24 @@
+<div class="nested-fields row align-items-center mb-3">
+
+  <%= f.hidden_field :_destroy %>
+
+  <div class="col-md-6">
+    <%= f.label :product_id, "Produto", class: "form-label" %>
+    <%= f.collection_select :product_id,
+          Product.joins(:category).order('products.name ASC', 'categories.name ASC'),
+          :id,
+          :name_with_category,
+          { prompt: "Selecione um produto" },
+          { class: "form-select" } %>
+  </div>
+  <div class="col-md-4">
+    <%= f.label :quantity, "Quantidade", class: "form-label" %>
+    <%= f.number_field :quantity, class: "form-control", min: 1, value: 1 %>
+  </div>
+  <div class="col-md-2 d-flex align-items-end">
+    <button type="button" data-action="click->nested-form#remove" class="btn btn-danger w-100">
+      Remover
+    </button>
+  </div>
+</div>
+

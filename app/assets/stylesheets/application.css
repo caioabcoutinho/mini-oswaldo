@@ -1,0 +1,21 @@
+/* app/assets/stylesheets/application.css */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.login-bg {
+  min-height: 100vh;
+  background-color: #4F5E69 !important;
+}
+
+.login-bg main,
+.login-bg .container-fluid {
+  background-color: transparent !important;
+  height: 100%;
+}
+
+.login-bg .card {
+  background-color: #fff !important;
+}

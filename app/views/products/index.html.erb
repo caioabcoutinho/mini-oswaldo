@@ -1,0 +1,39 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Gestão de Vacinas</h1>
+  <%= link_to content_tag(:i, "", class: "bi bi-plus-lg") + " Novo Produto", new_product_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr class="table-light">
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Preço</th>
+          <th>Categoria</th>
+          <th class="text-end">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @products.each do |product| %>
+          <tr>
+            <td><%= product.id %></td>
+            <td><%= product.name %></td>
+            <td><%= product.description %></td>
+            <td><%= number_to_currency(product.price) %></td>
+            <td><%= product.category.name %></td>
+            <td class="text-end">
+                <div class="d-inline-flex gap-2">
+                  <%= link_to content_tag(:i, "", class: "bi bi-eye") + " Ver", product, class: "btn btn-sm btn-outline-info" %>
+                  <%= link_to content_tag(:i, "", class: "bi bi-pencil") + " Editar", edit_product_path(product), class: "btn btn-sm btn-outline-warning" %>
+                </div>
+               </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

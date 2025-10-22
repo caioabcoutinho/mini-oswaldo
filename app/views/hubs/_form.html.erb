@@ -1,0 +1,30 @@
+<%= form_with(model: hub) do |form| %>
+  <% if hub.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(hub.errors.count, "erro") %> impediu este hub de ser salva:</h2>
+      <ul>
+        <% hub.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="mb-3">
+        <%= form.label :name, "Nome", class: "form-label" %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :location, "Localização", class: "form-label" %>
+        <%= form.text_field :location, class: "form-control" %>
+      </div>
+    </div>
+    <div class="card-footer text-end">
+      <%= link_to "Cancelar", hubs_path, class: "btn btn-secondary" %>
+      <%= form.submit "Salvar", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,35 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Usuários</h1>
+  <%= link_to "Novo Usuário", new_admin_user_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Criado em</th>
+          <th class="text-end">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td><%= user.created_at.to_fs(:short) %></td>
+            <td class="text-end">
+              <%= link_to "Ver", admin_user_path(user), class: "btn btn-sm btn-info" %>
+              <%= link_to "Editar", edit_admin_user_path(user), class: "btn btn-sm btn-warning" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% if @users.empty? %>
+  <div class="alert alert-info mt-4" role="alert">
+    Nenhum usuário encontrado.
+  </div>
+<% end %>

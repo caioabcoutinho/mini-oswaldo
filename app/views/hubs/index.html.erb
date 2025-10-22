@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Gestão de Hubs</h1>
+  <%= link_to content_tag(:i, "", class: "bi bi-plus-lg") + " Novo Hub", new_hub_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr class="table-light">
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Localização</th>
+          <th class="text-end">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @hubs.each do |hub| %>
+          <tr>
+            <td><%= hub.id %></td>
+            <td><%= hub.name %></td>
+            <td><%= hub.location %></td>
+            <td class="text-end">
+              <%= link_to content_tag(:i, "", class: "bi bi-eye") + " Ver", hub, class: "btn btn-sm btn-outline-info" %>
+              <%= link_to content_tag(:i, "", class: "bi bi-pencil") + " Editar", edit_hub_path(hub), class: "btn btn-sm btn-outline-warning" %>
+              </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

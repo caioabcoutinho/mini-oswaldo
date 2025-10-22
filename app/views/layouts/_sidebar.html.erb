@@ -1,0 +1,22 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark min-vh-100 position-sticky top-0" style="width: 280px;">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <span class="fs-4">BEEP CODE</span>
+  </a>
+  <hr>
+  
+  <ul class="nav nav-pills flex-column mb-auto">
+    
+    <%= nav_link "Dashboard", root_path, "bi-grid-1x2-fill", "dashboard" %>
+    <%= nav_link "Agendamentos", appointments_path, "bi-calendar-event", "appointments" %>
+    <%= nav_link "HUBs", hubs_path, "bi-hdd-stack", "hubs" %>
+    <%= nav_link "Categorias", categories_path, "bi-tags", "categories" %>
+    <%= nav_link "Vacinas", products_path, "bi-eyedropper", "products" %>
+    <%= nav_link "Usuários", admin_users_path, "bi-people-fill", "admin/users" %>
+  </ul>
+
+  <hr>
+  
+  <div class="px-3">
+    <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "btn btn-danger w-100" %>
+  </div>
+</div>

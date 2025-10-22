@@ -1,0 +1,21 @@
+<div id="<%= dom_id product %>">
+  <p>
+    <strong>Name:</strong>
+    <%= product.name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= product.description %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= number_to_currency(product.price) %>
+  </p>
+
+  <p>
+    <strong>Product Category:</strong>
+    <%= product.category.name if product.category %>
+  </p>
+</div>

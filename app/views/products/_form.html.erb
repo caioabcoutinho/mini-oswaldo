@@ -1,0 +1,40 @@
+<%= form_with(model: product) do |form| %>
+  <% if product.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(product.errors.count, "erro") %> impediu este produto de ser salva:</h2>
+      <ul>
+        <% product.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="mb-3">
+        <%= form.label :name, "Nome", class: "form-label" %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :description, "Descrição", class: "form-label" %>
+        <%= form.text_field :description, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :price, "Preço", class: "form-label" %>
+        <%= form.number_field :price, step: 0.01, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :category_id, "Categoria", class: "form-label" %>
+        <%= form.collection_select :category_id, Category.order(:name), :id, :name, include_blank: true %>
+      </div>
+    </div>
+    <div class="card-footer text-end">
+      <%= link_to "Cancelar", products_path, class: "btn btn-secondary" %>
+      <%= form.submit "Salvar", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

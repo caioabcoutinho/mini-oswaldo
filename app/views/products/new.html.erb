@@ -1,0 +1,10 @@
+<% content_for :title, "Novo Produto" %>
+
+<h1 class="h3 mb-4">Novo Produto</h1>
+<%= render "form", product: @product %>
+
+<br>
+
+<div>
+  <%= link_to "Voltar para os produtos", products_path %>
+</div>

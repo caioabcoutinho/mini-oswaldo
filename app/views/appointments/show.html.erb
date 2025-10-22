@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Agendamento #<%= @appointment.id %></h1>
+  <div>
+    <%= link_to "Voltar", appointments_path, class: "btn btn-secondary" %>
+    
+    <% if @appointment.status == "Agendado" %>
+      <%= button_to "Concluir Agendamento", 
+            complete_appointment_path(@appointment), 
+            method: :patch, 
+            class: "btn btn-success d-inline-block ms-2",
+            form: { data: { turbo_confirm: 'Tem certeza que deseja concluir este agendamento? Esta ação dará baixa no estoque.' } } %>
+    <% end %>
+  </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-header">
+    <h2 class="h5 mb-0">Detalhes</h2>
+  </div>
+  <div class="card-body">
+    <p><strong>Paciente:</strong> <%= @appointment.patient_name %></p>
+    <p><strong>Data:</strong> <%= l @appointment.appointment_date, format: :long %></p>
+    <p><strong>Endereço:</strong> <%= @appointment.address %></p>
+    <p><strong>Status:</strong> <span class="badge bg-info fs-6"><%= @appointment.status %></span></p>
+    <p><strong>Hub de Origem:</strong> <%= @appointment.hub.name %></p>
+    <p><strong>Técnico(a):</strong> <%= @appointment.technician_name %></p>
+    <p><strong>Agendado por:</strong> <%= @appointment.user.email %></p>
+  </div>
+  <div class="card-footer text-end">
+    <%= link_to "Editar", edit_appointment_path(@appointment), class: "btn btn-warning" %>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h2 class="h5 mb-0">Produtos (Vacinas) Inclusos</h2>
+  </div>
+  <div class="card-body">
+    <ul class="list-group list-group-flush">
+      <% @appointment.appointment_items.each do |item| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= item.product.name_with_category %>
+          <span class="badge bg-primary rounded-pill fs-6">
+            <%= item.quantity %> unidade(s)
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

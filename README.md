@@ -38,31 +38,31 @@ Pré-requisitos
 
 Instalação
 1. Clone o repositório:
-  git clone https://github.com/caioabcoutinho/mini-oswaldo.git
-  cd mini-oswaldo
+  - git clone https://github.com/caioabcoutinho/mini-oswaldo.git
+  - cd mini-oswaldo
 
 2. Instale as dependências:
-  bundle install
-  yarn install # Ou npm install, dependendo da sua configuração
+  - bundle install
+  - yarn install # Ou npm install, dependendo da sua configuração
 
 3. Configure o Banco de Dados:
 - Certifique-se de que o PostgreSQL está rodando.
 - Edite config/database.yml com suas credenciais de usuário e senha do PostgreSQL, se necessário.
 - Crie o banco de dados e rode as migrações:
-    rails db:create
-    rails db:migrate
+    - rails db:create
+    - rails db:migrate
 (Opcional) Popule o banco com dados iniciais:
-    rails db:seed
+    - rails db:seed
 
 4. Inicie o Servidor:
-  rails s
+  - rails s
 A aplicação estará disponível em http://localhost:3000.
 
 Primeiro Acesso
 Como o cadastro público está desabilitado, você precisa criar seu primeiro usuário via console:
-  rails c
-  User.create(email: 'admin@exemplo.com', password: 'password', password_confirmation: 'password')
-  exit
+  - rails c
+  - User.create(email: 'admin@exemplo.com', password: 'password', password_confirmation: 'password')
+  - exit
 
 Agora você pode acessar http://localhost:3000/users/sign_in com essas credenciais.
 
